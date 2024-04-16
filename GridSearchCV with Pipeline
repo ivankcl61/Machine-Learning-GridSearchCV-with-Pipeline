@@ -1,0 +1,55 @@
+!pip install numpy
+!pip install pandas
+!pip install xgboost
+import numpy as np
+import pandas as pd
+import xgboost as xgb
+import matplotlib.pyplot as plt
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.model_selection import GridSearchCV
+from sklearn.linear_model import Ridge
+
+plt.rcParams.update({'font.size' :14})
+
+# set up parameters
+def true_fun(x):
+    return np.cos(1.5 * np.pi * x)
+n_samples = 100
+np.random.seed(4)
+
+x = np.sort (np.random.rand(n_samples))
+y= true_fun(x) + np.random.randn(n_samples) *0.02
+
+plt.plot(x,y, 'bo--', label = 'True function')
+plt.legend()
+plt.show()
+
+#Define the function
+def true_fun(x):
+    return np.cos(1.5 * np.pi * x)
+n_samples = 100
+np.random.seed(4)
+
+x = np.sort (np.random.rand(n_samples))
+y= true_fun(x) + np.random.randn(n_samples) *0.02
+
+plt.plot(x,y, 'bo--', label = 'True function')
+plt.legend()
+plt.show()
+
+# Find the best fit regression line
+search.best_params_
+
+#Adjust the result with the best fit parameters
+final_model = Pipeline(steps =[("poly", PolynomialFeatures(degree=4)),("regress",Ridge(alpha= 0.1))])
+
+final_model.fit(x.reshape(-1,1),y)
+
+x_test = np.linspace(0,1,200)
+
+plt.plot(x,y, 'bo--', label = 'True function')
+
+plt.plot(x_test, final_model.predict(x_test.reshape(-1,1)),'r^-', label = 'Prediction model')
+plt.legend()
+plt.show()
